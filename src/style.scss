@@ -6,8 +6,20 @@
 @tailwind components;
 @tailwind utilities;
 
-// typography
+// general
+body {
+  @apply min-w-['360px'] bg-FFFFFF;
 
+  &.dark {
+    background: #050505;
+  }
+}
+
+#app {
+  @apply relative grid w-full max-w-[1920px] place-items-center;
+}
+
+// typography
 .font {
   &-heading {
     &-l {

@@ -1,5 +1,5 @@
 <template>
-  <div>Dictionary Web App</div>
+  <Topbar />
 
   <div v-if="loading">Loading...</div>
   <div v-else-if="error">{{ error }}</div>
@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import Topbar from './components/TopBar.vue';
 import getDefinition from './composables/getDefinition';
 export default {
   setup() {
@@ -18,6 +19,9 @@ export default {
     searchWord('hello');
 
     return { definition, error, loading, searchWord };
+  },
+  components: {
+    Topbar,
   },
 };
 </script>

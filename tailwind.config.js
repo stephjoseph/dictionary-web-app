@@ -5,7 +5,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        '050505': '#050505',
+        0o50505: '#050505',
         '1F1F1F': '#1F1F1F',
         '2D2D2D': '#2D2D2D',
         '3A3A3A': '#3A3A3A',
@@ -24,4 +24,5 @@ export default {
     },
   },
   plugins: [],
+  darkMode: 'class',
 };
