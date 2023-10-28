@@ -28,7 +28,7 @@
         </button>
         <ul
           v-if="isOpen"
-          class="absolute right-0 top-[2.75rem] flex h-[9.5rem] w-[11.438rem] flex-col gap-4 rounded-[16px] bg-FFFFFF p-6 shadow-[0_5px_30px_0px_rgba(0,0,0,0.1)] dark:bg-1F1F1F dark:shadow-[0_5px_30px_0px_#A445ED]"
+          class="absolute right-0 top-[2.75rem] z-50 flex h-[9.5rem] w-[11.438rem] flex-col gap-4 rounded-[16px] bg-FFFFFF p-6 shadow-[0_5px_30px_0px_rgba(0,0,0,0.1)] dark:bg-1F1F1F dark:shadow-[0_5px_30px_0px_#A445ED]"
         >
           <li
             v-for="(option, index) in options"
