@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme');
 export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
@@ -14,6 +15,11 @@ export default {
         FFFFFF: '#FFFFFF',
         A445ED: '#A445ED',
         FF5252: 'FF5252',
+      },
+      fontFamily: {
+        sans: ['Inter', ...defaultTheme.fontFamily.sans],
+        serif: ['Lora', ...defaultTheme.fontFamily.serif],
+        mono: ['Inconsolata', ...defaultTheme.fontFamily.mono],
       },
     },
   },
