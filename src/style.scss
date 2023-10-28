@@ -1,0 +1,47 @@
+// fonts
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Inter:wght@400;700&family=Lora:wght@400;700&display=swap');
+
+// tailwind directives
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// general
+body {
+  @apply min-w-['360px'] bg-FFFFFF;
+
+  &.dark {
+    background: #050505;
+  }
+}
+
+#app {
+  @apply relative grid w-full max-w-[1920px] place-items-center;
+}
+
+// typography
+.font {
+  &-heading {
+    &-l {
+      @apply text-[4rem] font-bold leading-[4.813rem] tracking-normal;
+    }
+
+    &-m {
+      @apply text-[1.5rem] font-normal leading-[1.813rem] tracking-normal;
+    }
+
+    &-s {
+      @apply text-[1.25rem] font-normal leading-6 tracking-normal;
+    }
+  }
+
+  &-body {
+    &-m {
+      @apply text-[1.125rem] font-normal leading-6 tracking-normal;
+    }
+
+    &-s {
+      @apply text-[0.875rem] font-normal leading-[1.063rem] tracking-normal;
+    }
+  }
+}
