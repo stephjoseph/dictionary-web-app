@@ -15,16 +15,33 @@ export default function getDefinition() {
       );
 
       const data = await res.json();
-      `      console.log(data[0]);`;
+      console.log(data[0]);
       if (data.length > 0) {
         definition.value = data[0];
         const phonetics = definition.value.phonetics;
 
-        phonetics.forEach((item) => {
-          if (item.text && item.audio) {
-            phonetic.value = item;
+        if (phonetics.length) {
+          let prioritizedItem = null; // Initialize a variable to store the prioritized item
+
+          for (const item of phonetics) {
+            if (item.text && item.audio) {
+              // If an item with both text and audio is found, set and break the loop
+              phonetic.value = item;
+              prioritizedItem = item;
+              break;
+            } else if (!prioritizedItem && (item.text || item.audio)) {
+              // If no item with both text and audio is found but an item has either text or audio, set it
+              phonetic.value = item;
+            }
           }
-        });
+
+          if (!prioritizedItem) {
+            // If no item with both text and audio or either text or audio is found, set a default value
+            phonetic.value = { audio: null, text: null };
+          }
+        } else {
+          phonetic.value = { audio: null, text: null };
+        }
       } else {
         definition.value = null;
         error.value = 'No definition found';
