@@ -10,6 +10,7 @@
     <div class="flex items-center gap-4">
       <div class="relative">
         <button
+          ref="toggleDropdownRef"
           class="flex cursor-pointer items-center gap-4"
           @click="toggleDropdown"
         >
@@ -28,6 +29,7 @@
         </button>
         <Transition name="fade">
           <ul
+            ref="dropdownRef"
             v-if="isOpen"
             class="absolute right-0 top-[2.75rem] z-50 flex h-[9.5rem] w-[11.438rem] flex-col gap-4 rounded-[16px] bg-FFFFFF p-6 shadow-[0_5px_30px_0px_rgba(0,0,0,0.1)] dark:bg-1F1F1F dark:shadow-[0_5px_30px_0px_#A445ED]"
           >
@@ -80,13 +82,15 @@
 </template>
 
 <script>
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue';
 export default {
   setup() {
     const options = ref(['Sans Serif', 'Serif', 'Mono']);
     const selectedFont = ref('Sans Serif');
     const isOpen = ref(false);
     const darkMode = ref(false);
+    const toggleDropdownRef = ref(false);
+    const dropdownRef = ref(null);
 
     // Watch for changes in darkMode and update the body class accordingly
     watch(darkMode, (newValue) => {
@@ -120,16 +124,26 @@ export default {
     // set font on load
     changeFont();
 
-    function toggleDropdown() {
+    const toggleDropdown = () => {
       isOpen.value = !isOpen.value;
-    }
+    };
 
-    function selectOption(option) {
+    const selectOption = (option) => {
       selectedFont.value = option;
       isOpen.value = false;
       isOpen.value = false;
       changeFont();
-    }
+    };
+
+    const handleClickOutside = (event) => {
+      if (
+        dropdownRef.value &&
+        !dropdownRef.value.contains(event.target) &&
+        !toggleDropdownRef.value.contains(event.target)
+      ) {
+        isOpen.value = false;
+      }
+    };
 
     onMounted(() => {
       if (
@@ -143,6 +157,12 @@ export default {
         document.body.classList.remove('dark');
         darkMode.value = false;
       }
+
+      document.addEventListener('click', handleClickOutside);
+    });
+
+    onBeforeUnmount(() => {
+      document.removeEventListener('click', handleClickOutside);
     });
     return {
       options,
@@ -150,6 +170,8 @@ export default {
       isOpen,
       toggleDropdown,
       selectOption,
+      toggleDropdownRef,
+      dropdownRef,
       darkMode,
     };
   },
