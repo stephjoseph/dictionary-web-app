@@ -26,29 +26,31 @@
             />
           </div>
         </button>
-        <ul
-          v-if="isOpen"
-          class="absolute right-0 top-[2.75rem] flex h-[9.5rem] w-[11.438rem] flex-col gap-4 rounded-[16px] bg-FFFFFF p-6 shadow-[0_5px_30px_0px_rgba(0,0,0,0.1)] dark:bg-1F1F1F dark:shadow-[0_5px_30px_0px_#A445ED]"
-        >
-          <li
-            v-for="(option, index) in options"
-            :key="index"
-            @click="selectOption(option)"
-            class="cursor-pointer text-[1.125rem] leading-6 tracking-normal text-2D2D2D hover:text-A445ED dark:text-FFFFFF"
-            :class="[
-              selectedFont === option ? 'font-bold' : '',
-              option === 'Sans Serif'
-                ? 'font-sans'
-                : option === 'serif'
-                ? 'font-serif'
-                : option === 'Mono'
-                ? 'font-mono'
-                : '',
-            ]"
+        <Transition name="fade">
+          <ul
+            v-if="isOpen"
+            class="absolute right-0 top-[2.75rem] z-50 flex h-[9.5rem] w-[11.438rem] flex-col gap-4 rounded-[16px] bg-FFFFFF p-6 shadow-[0_5px_30px_0px_rgba(0,0,0,0.1)] dark:bg-1F1F1F dark:shadow-[0_5px_30px_0px_#A445ED]"
           >
-            {{ option }}
-          </li>
-        </ul>
+            <li
+              v-for="(option, index) in options"
+              :key="index"
+              @click="selectOption(option)"
+              class="cursor-pointer text-[1.125rem] leading-6 tracking-normal text-2D2D2D hover:text-A445ED dark:text-FFFFFF"
+              :class="[
+                selectedFont === option ? 'font-bold' : '',
+                option === 'Sans Serif'
+                  ? 'font-sans'
+                  : option === 'serif'
+                  ? 'font-serif'
+                  : option === 'Mono'
+                  ? 'font-mono'
+                  : '',
+              ]"
+            >
+              {{ option }}
+            </li>
+          </ul>
+        </Transition>
       </div>
       <div class="h-8 w-px bg-E9E9E9"></div>
       <div class="flex items-center gap-3">
@@ -213,7 +215,7 @@ export default {
 // transition styles
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.1s ease;
+  transition: opacity 0.3s ease;
 }
 
 .fade-enter-from,
