@@ -1,5 +1,7 @@
 <template>
-  <div class="flex w-full items-center justify-between p-6">
+  <div
+    class="flex w-full max-w-[736px] items-center justify-between p-6 md:px-10 md:py-14"
+  >
     <a href="/" class="h-8 w-7">
       <img
         class="h-full w-full object-cover"
@@ -7,11 +9,11 @@
         alt="logo"
       />
     </a>
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-4 md:gap-7">
       <div class="relative">
         <button
           ref="toggleDropdownRef"
-          class="flex cursor-pointer items-center gap-4"
+          class="flex cursor-pointer items-center gap-4 md:gap-[1.125rem]"
           @click="toggleDropdown"
         >
           <div
@@ -55,7 +57,7 @@
         </Transition>
       </div>
       <div class="h-8 w-px bg-E9E9E9"></div>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-3 md:gap-5">
         <label class="switch">
           <input type="checkbox" v-model="darkMode" />
           <div class="slider round"></div>

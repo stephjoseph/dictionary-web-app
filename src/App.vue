@@ -1,14 +1,19 @@
 <template>
   <Topbar />
 
-  <div class="flex w-full flex-col gap-6 px-6 pb-20">
+  <div
+    class="flex w-full max-w-[736px] flex-col gap-6 px-6 pb-20 md:gap-10 md:px-10 md:pb-[7.5rem]"
+  >
     <form @submit.prevent="handleSearch" class="relative">
       <input
         v-model="word"
         placeholder="Search for any word…"
-        class="focus:ring-sky-500D font-base w-full rounded-[16px] bg-F4F4F4 px-6 py-[0.875rem] font-bold leading-5 caret-A445ED transition-colors duration-300 placeholder:text-2D2D2D/25 focus:border-A445ED focus:outline-none focus:ring-1 focus:ring-A445ED dark:bg-1F1F1F dark:text-FFFFFF"
+        class="font-base w-full rounded-[16px] bg-F4F4F4 px-6 py-[0.875rem] font-bold leading-5 caret-A445ED transition-colors duration-300 placeholder:text-2D2D2D/25 focus:border-A445ED focus:outline-none focus:ring-1 focus:ring-A445ED dark:bg-1F1F1F dark:text-FFFFFF md:py-5 md:text-[1.25rem] md:leading-6"
       />
-      <button type="submit" class="absolute right-5 top-4 h-4 w-4">
+      <button
+        type="submit"
+        class="absolute right-5 top-4 h-4 w-4 md:right-6 md:top-[1.438rem]"
+      >
         <img
           class="h-full w-full object-cover"
           src="./assets/images/icon-search.svg"
@@ -17,26 +22,29 @@
       </button>
     </form>
     <div v-if="loading">Loading...</div>
-    <div v-else-if="definition" class="flex w-full flex-col gap-6">
+    <div v-else-if="definition" class="flex w-full flex-col gap-6 md:gap-10">
       <div
-        class="flex w-full flex-col gap-8 border-b border-solid border-E9E9E9 pb-8 transition-colors duration-300 dark:border-3A3A3A"
+        class="flex w-full flex-col gap-8 border-b border-solid border-E9E9E9 pb-8 transition-colors duration-300 dark:border-3A3A3A md:gap-10 md:pb-10"
       >
         <!-- word -->
         <div class="flex items-center justify-between">
           <div class="flex flex-col gap-2">
             <h1
-              class="text-[2rem] font-bold leading-10 tracking-normal text-2D2D2D transition-colors duration-300 dark:text-FFFFFF"
+              class="text-[2rem] font-bold leading-10 tracking-normal text-2D2D2D transition-colors duration-300 dark:text-FFFFFF md:text-[4rem] md:leading-[4.813rem]"
             >
               {{ definition.word }}
             </h1>
             <span
               v-if="phonetic.text"
-              class="text-[1.125rem] leading-6 tracking-normal text-A445ED"
+              class="text-[1.125rem] leading-6 tracking-normal text-A445ED md:text-[1.5rem] md:leading-[1.813rem]"
               >{{ phonetic.text }}</span
             >
           </div>
           <div class="audio-player" v-if="phonetic.audio">
-            <button @click="playAudio" class="h-12 w-12">
+            <button
+              @click="playAudio"
+              class="h-12 w-12 md:h-[4.688rem] md:w-[4.688rem]"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="75"
@@ -78,7 +86,7 @@
           >
             <div class="flex items-center gap-6">
               <h2
-                class="text-[1.125rem] font-bold italic leading-5 tracking-normal text-2D2D2D transition-colors duration-300 dark:text-white"
+                class="text-[1.125rem] font-bold italic leading-5 tracking-normal text-2D2D2D transition-colors duration-300 dark:text-white md:text-[1.5rem] md:leading-[1.813rem]"
               >
                 {{ meaning.partOfSpeech }}
               </h2>
@@ -88,16 +96,18 @@
             </div>
             <div class="flex w-full flex-col gap-10">
               <section class="flex w-full flex-col gap-4">
-                <h3 class="font-base leading-5 tracking-normal text-757575">
+                <h3
+                  class="font-base leading-5 tracking-normal text-757575 md:text-[1.25rem] md:leading-6"
+                >
                   Meaning
                 </h3>
                 <ul
-                  class="ml-4 flex list-outside list-disc flex-col gap-4 marker:text-A445ED"
+                  class="ml-4 flex list-outside list-disc flex-col gap-3 marker:text-A445ED md:ml-9"
                 >
                   <li
                     v-for="(definition, i) in meaning.definitions"
                     :key="i"
-                    class="pl-5 text-[0.938rem] leading-6 text-2D2D2D transition-colors duration-300 dark:text-FFFFFF"
+                    class="pl-5 text-[0.938rem] leading-6 text-2D2D2D transition-colors duration-300 dark:text-FFFFFF md:text-[1.125rem] md:leading-6"
                   >
                     <p :class="{ 'mb-3': definition.example }">
                       {{ definition.definition }}
@@ -108,13 +118,18 @@
                   </li>
                 </ul>
               </section>
-              <section v-if="meaning.synonyms.length" class="items flex gap-6">
-                <h3 class="font-base leading-5 tracking-normal text-757575">
+              <section
+                v-if="meaning.synonyms.length"
+                class="flex items-center gap-6"
+              >
+                <h3
+                  class="font-base leading-5 tracking-normal text-757575 md:text-[1.5rem] md:leading-[1.813rem]"
+                >
                   Synonyms
                 </h3>
                 <div>
                   <span
-                    class="font-base font-bold leading-5 tracking-normal text-A445ED"
+                    class="font-base font-bold leading-5 tracking-normal text-A445ED md:text-[1.25rem] md:leading-6"
                     v-for="(synonym, i) in meaning.synonyms"
                     :key="i"
                   >
@@ -123,15 +138,20 @@
                   </span>
                 </div>
               </section>
-              <section v-if="meaning.antonyms.length" class="flex gap-6">
-                <h3 class="font-base leading-5 tracking-normal text-757575">
+              <section
+                v-if="meaning.antonyms.length"
+                class="flex items-center gap-6"
+              >
+                <h3
+                  class="font-base leading-5 tracking-normal text-757575 md:text-[1.5rem] md:leading-[1.813rem]"
+                >
                   Antonyms
                 </h3>
                 <div>
                   <span
                     v-for="(synonym, i) in meaning.antonyms"
                     :key="i"
-                    class="font-base font-bold leading-5 tracking-normal text-A445ED"
+                    class="font-base font-bold leading-5 tracking-normal text-A445ED md:text-[1.25rem] md:leading-6"
                   >
                     {{ synonym
                     }}<span v-if="i < meaning.antonyms.length - 1">, </span>
@@ -146,26 +166,28 @@
       <!-- source -->
       <div
         v-if="definition.sourceUrls.length"
-        class="flex w-full flex-col gap-2"
+        class="flex w-full flex-col gap-2 md:flex-row md:gap-5"
       >
         <h3 class="font-body-s text-757575 underline">Source</h3>
-        <a
-          v-for="(url, i) in definition.sourceUrls"
-          :key="i"
-          :href="url"
-          class="font-body-s flex items-center gap-2 text-2D2D2D underline transition-colors duration-300 dark:text-FFFFFF"
-        >
-          <span>
-            {{ url }}
-          </span>
-          <div class="h-3 w-3">
-            <img
-              class="h-full w-full object-cover"
-              src="./assets/images/icon-new-window.svg"
-              alt="new window icon"
-            />
-          </div>
-        </a>
+        <div class="flex w-full flex-col gap-2">
+          <a
+            v-for="(url, i) in definition.sourceUrls"
+            :key="i"
+            :href="url"
+            class="font-body-s flex items-center gap-2 text-2D2D2D underline transition-colors duration-300 dark:text-FFFFFF"
+          >
+            <span>
+              {{ url }}
+            </span>
+            <div class="h-3 w-3">
+              <img
+                class="h-full w-full object-cover"
+                src="./assets/images/icon-new-window.svg"
+                alt="new window icon"
+              />
+            </div>
+          </a>
+        </div>
       </div>
     </div>
 

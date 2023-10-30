@@ -16,7 +16,7 @@ body {
 }
 
 #app {
-  @apply relative grid w-full max-w-[1920px] place-items-center;
+  @apply relative mx-auto grid w-full max-w-[1920px] place-items-center;
 }
 
 // typography
