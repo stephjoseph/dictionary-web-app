@@ -4,11 +4,12 @@
   <div
     class="flex w-full max-w-[736px] flex-col gap-6 px-6 pb-20 md:gap-10 md:px-10 md:pb-[7.5rem]"
   >
-    <form @submit.prevent="handleSearch" class="relative">
+    <form @submit.prevent="handleSearch" class="relative flex flex-col gap-2">
       <input
         v-model="word"
         placeholder="Search for any word…"
-        class="font-base w-full rounded-[16px] bg-F4F4F4 px-6 py-[0.875rem] font-bold leading-5 caret-A445ED transition-colors duration-300 placeholder:text-2D2D2D/25 focus:border-A445ED focus:outline-none focus:ring-1 focus:ring-A445ED dark:bg-1F1F1F dark:text-FFFFFF md:py-5 md:text-[1.25rem] md:leading-6"
+        class="font-base w-full rounded-[16px] bg-F4F4F4 px-6 py-[0.875rem] font-bold leading-5 caret-A445ED transition-colors duration-300 placeholder:text-2D2D2D/25 focus:border-A445ED focus:outline-none focus:ring-1 dark:bg-1F1F1F dark:text-FFFFFF md:py-5 md:text-[1.25rem] md:leading-6"
+        :class="[isInputEmpty ? 'focus:ring-FF5252' : 'focus:ring-A445ED']"
       />
       <button
         type="submit"
@@ -20,9 +21,17 @@
           alt="search icon"
         />
       </button>
+      <span v-if="isInputEmpty" class="font-body-s text-FF5252">
+        Whoops, can’t be empty…
+      </span>
     </form>
-    <div v-if="loading">Loading...</div>
-    <div v-else-if="definition" class="flex w-full flex-col gap-6 md:gap-10">
+    <div v-if="loading">
+      <Skeleton />
+    </div>
+    <div
+      v-else-if="definition && !isInputEmpty"
+      class="flex w-full flex-col gap-6 md:gap-10"
+    >
       <div
         class="flex w-full flex-col gap-8 border-b border-solid border-E9E9E9 pb-8 transition-colors duration-300 dark:border-3A3A3A md:gap-10 md:pb-10"
       >
@@ -191,7 +200,24 @@
       </div>
     </div>
 
-    <div v-else>{{ error }}</div>
+    <div v-else>
+      <div
+        v-if="!isInputEmpty"
+        class="mt-32 flex flex-col items-center gap-11 text-center"
+      >
+        <span class="text-[4rem] leading-[4.5rem] tracking-normal">😕</span>
+        <div class="flex flex-col gap-6">
+          <h2 class="font-heading-s !font-bold capitalize text-2D2D2D">
+            {{ error }}
+          </h2>
+          <p class="font-body-m text-757575">
+            Sorry pal, we couldn't find definitions for the word you were
+            looking for. You can try the search again at later time or head to
+            the web instead.
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -199,17 +225,22 @@
 import { ref } from 'vue';
 import Topbar from './components/TopBar.vue';
 import getDefinition from './composables/getDefinition';
+import Skeleton from './components/Skeleton.vue';
 export default {
   setup() {
     const { definition, phonetic, error, loading, searchWord } =
       getDefinition();
     const word = ref('keyboard');
+    const isInputEmpty = ref(false);
     const audioPlayer = ref(null);
     const isPlaying = ref(false);
 
     const handleSearch = () => {
       if (word.value) {
+        isInputEmpty.value = false;
         searchWord(word.value);
+      } else {
+        isInputEmpty.value = true;
       }
     };
 
@@ -232,6 +263,7 @@ export default {
       searchWord,
       handleSearch,
       word,
+      isInputEmpty,
       isPlaying,
       playAudio,
       audioPlayer,
@@ -240,6 +272,7 @@ export default {
   },
   components: {
     Topbar,
+    Skeleton,
   },
 };
 </script>
