@@ -129,7 +129,7 @@
               </section>
               <section
                 v-if="meaning.synonyms.length"
-                class="flex items-center gap-6"
+                class="flex items-start gap-6"
               >
                 <h3
                   class="font-base leading-5 tracking-normal text-757575 md:text-[1.5rem] md:leading-[1.813rem]"
@@ -149,7 +149,7 @@
               </section>
               <section
                 v-if="meaning.antonyms.length"
-                class="flex items-center gap-6"
+                class="flex items-start gap-6"
               >
                 <h3
                   class="font-base leading-5 tracking-normal text-757575 md:text-[1.5rem] md:leading-[1.813rem]"
