@@ -25,7 +25,9 @@
         Whoops, can’t be empty…
       </span>
     </form>
-    <div v-if="loading">Loading...</div>
+    <div v-if="loading">
+      <Skeleton />
+    </div>
     <div
       v-else-if="definition && !isInputEmpty"
       class="flex w-full flex-col gap-6 md:gap-10"
@@ -198,17 +200,22 @@
       </div>
     </div>
 
-    <div v-else class="mt-32 flex flex-col items-center gap-11 text-center">
-      <span class="text-[4rem] leading-[4.5rem] tracking-normal">😕</span>
-      <div class="flex flex-col gap-6">
-        <h2 class="font-heading-s !font-bold capitalize text-2D2D2D">
-          {{ error }}
-        </h2>
-        <p class="font-body-m text-757575">
-          Sorry pal, we couldn't find definitions for the word you were looking
-          for. You can try the search again at later time or head to the web
-          instead.
-        </p>
+    <div v-else>
+      <div
+        v-if="!isInputEmpty"
+        class="mt-32 flex flex-col items-center gap-11 text-center"
+      >
+        <span class="text-[4rem] leading-[4.5rem] tracking-normal">😕</span>
+        <div class="flex flex-col gap-6">
+          <h2 class="font-heading-s !font-bold capitalize text-2D2D2D">
+            {{ error }}
+          </h2>
+          <p class="font-body-m text-757575">
+            Sorry pal, we couldn't find definitions for the word you were
+            looking for. You can try the search again at later time or head to
+            the web instead.
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -218,6 +225,7 @@
 import { ref } from 'vue';
 import Topbar from './components/TopBar.vue';
 import getDefinition from './composables/getDefinition';
+import Skeleton from './components/Skeleton.vue';
 export default {
   setup() {
     const { definition, phonetic, error, loading, searchWord } =
@@ -264,6 +272,7 @@ export default {
   },
   components: {
     Topbar,
+    Skeleton,
   },
 };
 </script>
