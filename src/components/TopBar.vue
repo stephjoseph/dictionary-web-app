@@ -1,5 +1,7 @@
 <template>
-  <div class="flex w-full items-center justify-between p-6 md:px-10 md:py-14">
+  <div
+    class="flex w-full max-w-[736px] items-center justify-between p-6 md:px-10 md:py-14"
+  >
     <a href="/" class="h-8 w-7">
       <img
         class="h-full w-full object-cover"

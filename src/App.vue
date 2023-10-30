@@ -2,7 +2,7 @@
   <Topbar />
 
   <div
-    class="flex w-full flex-col gap-6 px-6 pb-20 md:gap-10 md:px-10 md:pb-[7.5rem]"
+    class="flex w-full max-w-[736px] flex-col gap-6 px-6 pb-20 md:gap-10 md:px-10 md:pb-[7.5rem]"
   >
     <form @submit.prevent="handleSearch" class="relative">
       <input
