@@ -44,7 +44,7 @@ export default function getDefinition() {
         }
       } else {
         definition.value = null;
-        error.value = 'No definition found';
+        error.value = 'No definitions found';
       }
 
       console.log(phonetic.value);

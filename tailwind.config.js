@@ -14,7 +14,7 @@ export default {
         F4F4F4: '#F4F4F4',
         FFFFFF: '#FFFFFF',
         A445ED: '#A445ED',
-        FF5252: 'FF5252',
+        FF5252: '#FF5252',
       },
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
